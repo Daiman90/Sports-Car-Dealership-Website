@@ -9,6 +9,10 @@
   --mainYellow: #E3B505;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--mainBlack);
@@ -68,7 +72,7 @@ body {
   font-size: 1.5rem;
   color: var(--mainBlue);
   text-decoration: none!important;
-  transition: color 2s linear;
+  transition: color 0.3s linear;
 }
 
 .nav-icon:hover {
@@ -77,7 +81,8 @@ body {
 
 .header {
   clip-path: polygon(0 0, 100% 0, 100% 95%, 50% 100%, 0 95%);
-  color: var(--mainBlue);
+  color: var(--mainWhite);
+  text-shadow: 0.1rem 0.1rem var(--mainBlue);
   overflow: hidden;
 }
 
@@ -90,15 +95,34 @@ body {
   animation-iteration-count: infinite;
 }
 
+.text {
+  animation-name: textZoom;
+  animation-duration: 20s;
+  animation-delay: 5s;
+  animation-iteration-count: infinite;
+}
+
 @keyframes zoom {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.2) translateX(-5%);
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes textZoom {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translate(0)
   }
 }
 
@@ -205,7 +229,7 @@ body {
   border-radius: 0.5rem;
   opacity: 0.5;
   cursor: pointer;
-  transition: all 1s ease-in-out
+  transition: all 0.4s ease-in-out
 }
 
 .featured-item:hover {
@@ -231,7 +255,7 @@ body {
 }
 
 .featured-photo {
-  transition: all 1s ease-in-out
+  transition: all 0.5s ease-in-out
 }
 
 .img-container:hover .featured-photo {
@@ -247,7 +271,7 @@ body {
   transform: translate(-50%, -50%);
   color: var(--mainBlack);
   opacity: 0;
-  transition: all 1s ease-in-out
+  transition: all 0.5s ease-in-out
 }
 
 .featured-link:hover {
@@ -314,7 +338,7 @@ body {
   font-size: 1.5rem;
   text-decoration: none;
   color: var(--mainYellow);
-  transition: all 1s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .footer-icon:hover {

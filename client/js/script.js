@@ -5,89 +5,61 @@ const preLoader = (() => {
 })();
 
 const createCars = (() => {
-  const cars = [];
+  let cars = [];
+  const API_URL = 'http://localhost:3000/items';
 
-  class Car {
-    constructor(make, country, img, special, model, price, type, trans, gas) {
-      this.make = make;
-      this.country = country;
-      this.img = img;
-      this.special = special;
-      this.model = model;
-      this.price = price;
-      this.type = type;
-      this.trans = trans;
-      this.gas = gas;
-    }
-  }
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(results => {
+      results.forEach(result => {
+        cars.push(result);
+        const specialCars = cars.filter(car => car.special === true);
 
-  function makeCar(
-    make,
-    country,
-    img = 'img/Hero.jpg',
-    special = true,
-    model = 'new model',
-    price = 10000,
-    type = 'sedan',
-    trans = 'automatic',
-    gas = '50'
-  ) {
-    const car = new Car(
-      make,
-      country,
-      img,
-      special,
-      model,
-      price,
-      type,
-      trans,
-      gas
-    );
-
-    cars.push(car);
-  }
-
-  function produceCars() {
-    makeCar(
-      'chevy',
-      'american',
-      'img/chevy-1.jpg',
-      true,
-      undefined,
-      20000,
-      'sedan',
-      'manual'
-    );
-    makeCar('mercedes', 'german', 'img/mercedes-1.jpg');
-    makeCar('mercedes', 'german', 'img/mercedes-2.jpg');
-    makeCar('mercedes', 'german', 'img/mercedes-3.jpg', false);
-    makeCar('mercedes', 'german', 'img/mercedes-4.jpg');
-    makeCar('mercedes', 'german', 'img/mercedes-5.jpg', false);
-    makeCar('chevy', 'american', 'img/chevy-2.jpg');
-  }
-
-  produceCars();
-
-  const specialCars = cars.filter(car => car.special === true);
-
-  return {
-    cars,
-    specialCars
-  };
+        displayCars(cars);
+        displaySpecialCars(cars);
+      });
+    });
 })();
 
-const displaySpecialCars = (createCars => {
-  const specialCars = createCars.specialCars;
+//   function makeCar(
+//     make,
+//     country,
+//     img = 'img/Hero.jpg',
+//     special = true,
+//     model = 'new model',
+//     price = 10000,
+//     type = 'sedan',
+//     trans = 'automatic',
+//     gas = '50'
+//   ) {
 
+//   function produceCars() {
+//     makeCar(
+//       'chevy',
+//       'american',
+//       'img/chevy-1.jpg',
+//       true,
+//       undefined,
+//       20000,
+//       'sedan',
+//       'manual'
+//     );
+//     makeCar('mercedes', 'german', 'img/mercedes-1.jpg');
+//     makeCar('mercedes', 'german', 'img/mercedes-2.jpg');
+//     makeCar('mercedes', 'german', 'img/mercedes-3.jpg', false);
+//     makeCar('mercedes', 'german', 'img/mercedes-4.jpg');
+//     makeCar('mercedes', 'german', 'img/mercedes-5.jpg', false);
+//     makeCar('chevy', 'american', 'img/chevy-2.jpg');
+
+function displaySpecialCars(specialCars) {
   const info = document.querySelector('.featured-info');
 
-  document.addEventListener('DOMContentLoaded', () => {
-    info.innerHTML = '';
+  info.innerHTML = '';
 
-    let data = '';
+  let data = '';
 
-    specialCars.forEach(item => {
-      data += `          
+  specialCars.forEach(item => {
+    data += `
       <div class="featured-item my-3 d-flex p-2 text-capitalize align-items-baseline flex-wrap">
       <span data-img="${item.img}" class="featured-icon mr-2">
           <i class="fas fa-car"></i>
@@ -95,29 +67,25 @@ const displaySpecialCars = (createCars => {
         <h5 class="font-weight-bold mx-1">${item.make}</h5>
         <h5 class="mx-1">${item.model}</h5>
       </div>`;
-    });
-    info.innerHTML = data;
   });
+  info.innerHTML = data;
 
   info.addEventListener('click', event => {
-    if (event.target.parentElement.classList.contains('featured-icon')) {
-      const img = event.target.parentElement.dataset.img;
+    if (event.target.classList.contains('featured-item')) {
+      const img = event.target.querySelector('.featured-icon').dataset.img;
       document.querySelector('.featured-photo').src = img;
     }
   });
-})(createCars);
+}
 
-const displayCars = (createCars => {
-  const cars = createCars.cars;
+function displayCars(cars) {
   const inventory = document.querySelector('.inventory-container');
 
-  document.addEventListener('DOMContentLoaded', () => {
-    inventory.innerHTML = '';
+  inventory.innerHTML = '';
 
-    let output = '';
-
-    cars.forEach(car => {
-      output += `
+  let output = '';
+  cars.forEach(car => {
+    output += `
       <div class="col-10 mx-auto my-3 col-md-6 col-lg-4 single-car ${
         car.country
       }">
@@ -137,14 +105,13 @@ const displayCars = (createCars => {
       <div class="card-footer text-capitalize d-flex justify-content-between">
       <p><span><i class="fas fa-car"></i>${car.type}</span></p>
       <p><span><i class="fas fa-cogs"></i>${car.trans}</span></p>
-      <p><span><i class="fas fa-gas-pump"></i>${car.gas}</span></p>
+      <p><span><i class="fas fa-gas-pump"></i> ${car.gas}</span></p>
       </div>
       </div>
       </div>`;
-    });
-    inventory.innerHTML = output;
   });
-})(createCars);
+  inventory.innerHTML = output;
+}
 
 const filterCars = (() => {
   const filter = document.querySelectorAll('.filter-btn');
