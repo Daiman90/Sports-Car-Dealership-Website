@@ -34,10 +34,4 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(404));
 });
 
-router.delete('/', (req, res) => {
-  Item.find()
-    .then(item => item.remove())
-    .catch(err => res.status(404));
-});
-
 module.exports = router;

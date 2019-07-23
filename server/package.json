@@ -4,7 +4,7 @@
   "description": "Car Dealership Website Backend",
   "main": "router.js",
   "scripts": {
-    "start": "start"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",

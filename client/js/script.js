@@ -6,7 +6,7 @@ const preLoader = (() => {
 
 const createCars = (() => {
   let cars = [];
-  const API_URL = 'http://localhost:3000/items';
+  const API_URL = 'https://mock-car-dealership.herokuapp.com/items';
 
   fetch(API_URL)
     .then(response => response.json())
@@ -20,36 +20,6 @@ const createCars = (() => {
       });
     });
 })();
-
-//   function makeCar(
-//     make,
-//     country,
-//     img = 'img/Hero.jpg',
-//     special = true,
-//     model = 'new model',
-//     price = 10000,
-//     type = 'sedan',
-//     trans = 'automatic',
-//     gas = '50'
-//   ) {
-
-//   function produceCars() {
-//     makeCar(
-//       'chevy',
-//       'american',
-//       'img/chevy-1.jpg',
-//       true,
-//       undefined,
-//       20000,
-//       'sedan',
-//       'manual'
-//     );
-//     makeCar('mercedes', 'german', 'img/mercedes-1.jpg');
-//     makeCar('mercedes', 'german', 'img/mercedes-2.jpg');
-//     makeCar('mercedes', 'german', 'img/mercedes-3.jpg', false);
-//     makeCar('mercedes', 'german', 'img/mercedes-4.jpg');
-//     makeCar('mercedes', 'german', 'img/mercedes-5.jpg', false);
-//     makeCar('chevy', 'american', 'img/chevy-2.jpg');
 
 function displaySpecialCars(specialCars) {
   const info = document.querySelector('.featured-info');
